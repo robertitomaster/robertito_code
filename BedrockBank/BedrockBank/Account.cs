@@ -1,30 +1,43 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace BedrockBank
 {
+    public 
+        
+        enum AccountType { Checking, Savings };
+
     public class Account
     {
         #region Variables
 
-        private static int lastAccountNumber = 0;
+       // private static int lastAccountNumber = 0;
 
+        #endregion
+
+        #region Enumerations
+
+        
         #endregion
 
         #region Properties
 
         public string Name { get; set; }
 
+        [Key]
         public int AccountNumber { get; private set; }
 
         public int SSN { get; set; }
 
         public decimal Balance { get; private set; }
 
+        public AccountType TypeOfAccount { get; set; }
 
+        public virtual ICollection<Transaction> Transactions { get; set; }
 
         #endregion
 
@@ -62,7 +75,7 @@ namespace BedrockBank
         public Account()
         {
             
-            AccountNumber = ++lastAccountNumber;
+           // AccountNumber = ++lastAccountNumber;
 
         }
 
