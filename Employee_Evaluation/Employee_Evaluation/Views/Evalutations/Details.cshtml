@@ -1,0 +1,58 @@
+﻿@model Employee_Evaluation.Evalutation
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Evalutation</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.EvalutaionTitle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EvalutaionTitle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Objectives)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Objectives)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Accomplishments)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Accomplishments)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EmployeeComments)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmployeeComments)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ManagerComments)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ManagerComments)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.EvaluationId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

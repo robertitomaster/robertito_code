@@ -10,32 +10,38 @@ namespace BedrockBank
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Welcome to Bedrock Bank!");
+            var loginattempts = 3;
+            var isLoginSuccessful = false;
+            Console.WriteLine("***Welcome to Bedrock Bank!***");
             Console.Write("Please enter your Social Security Number:");
             var ssn = Console.ReadLine();
             int convertedSSN;
 
-            Console.WriteLine("Verifying your SSN");
-
-            if (int.TryParse(ssn, out convertedSSN) == true)
+            while (loginattempts > 0 && !isLoginSuccessful)
             {
-
+                
+                if (int.TryParse(ssn, out convertedSSN) == true)
+                {
+                    isLoginSuccessful = true;
                     var accounts = BankFactory.GetAllAccountsBySSN(convertedSSN);
 
                     if (accounts.Count() == 0)
                     {
-                        Console.WriteLine("No accounts found for {0}", convertedSSN);
+                        Console.WriteLine("No accounts found for {0}.", convertedSSN);
 
-                        Console.WriteLine("But give me your name and account will be created:");
+                        Console.Write("Do you want to create one? (y/n)");
 
-                        var newaccountuser = Console.ReadLine();
+                        var choice = Console.Read();
 
-                        var outAccount = BankFactory.CreateAccount(newaccountuser, convertedSSN);
-
-                        Console.WriteLine("The account number is {0}", outAccount.AccountNumber);
-                        Console.WriteLine("Maiking a deposit of {0:c} to your account as a welcome.", 100.00);
-
-                        BankFactory.Deposit(outAccount.AccountNumber, 100.00M);
+                        if (choice == 89 || choice == 121)
+                        {
+                            Console.WriteLine("What is your name?");
+                            var name = Console.ReadLine();
+                            var outAccount = BankFactory.CreateAccount(name, convertedSSN);
+                            var accountBalanceafterdeposit = BankFactory.Deposit(outAccount.AccountNumber, 100.00M);
+                            Console.WriteLine("Account Number: {0} and Balance: {1} ", outAccount.AccountNumber, accountBalanceafterdeposit);
+                        }
+                        
                     }
                     else
                     {
@@ -49,14 +55,32 @@ namespace BedrockBank
 
                             decimal outamount;
 
-                           if (decimal.TryParse(depositamount, out outamount))
+                            if (decimal.TryParse(depositamount, out outamount))
                             {
 
-                               BankFactory.Deposit(account.AccountNumber, outamount);
+                                BankFactory.Deposit(account.AccountNumber, outamount);
                             }
 
                         }
+
+                        Console.WriteLine("1. Deposit");
+                        Console.WriteLine("2. Withdraw");
+                        Console.WriteLine("0. Exit");
+
+                        var choice = Console.Read();
+                        if(choice == 1 || choice == 2)
+                        {
+                            Console.Write("Account Number Please: ");
+                            var accountNo = Console.ReadLine();
+                            Console.Write("");
+                        }
                     }
+                }
+                else
+                {
+                    Console.WriteLine("Please enter a correct value!");
+
+                }
             }
         }
     }
